@@ -1,0 +1,11 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+- mise
+- pnpm
+- express
+- trpc
+- rest
+- di
