@@ -1,0 +1,16 @@
+# 이 파일은 PR의 자동 리뷰어를 설정합니다
+# 각 라인은 파일 패턴과 그에 해당하는 소유자를 지정합니다
+
+# 기본적으로 모든 파일에 대해 팀원들을 리뷰어로 지정
+* @hoeeeeeh @CatyJazzy
+
+# 서버 코드에 대한 리뷰어
+/apps/server/ @hoeeeeeh @CatyJazzy
+
+# 프론트엔드 코드에 대한 리뷰어
+/apps/web/ @hoeeeeeh @CatyJazzy
+
+# 설정 파일에 대한 리뷰어
+*.json @hoeeeeeh @CatyJazzy
+*.yaml @hoeeeeeh @CatyJazzy
+*.toml @hoeeeeeh @CatyJazzy 

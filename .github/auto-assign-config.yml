@@ -1,0 +1,22 @@
+# 자동 할당 설정
+addReviewers: true
+addAssignees: author
+
+# 리뷰어 설정
+reviewers:
+  - hoeeeeeh
+  - CatyJazzy
+
+# GitHub Copilot을 리뷰어로 추가
+useReviewGroups: true
+reviewGroups:
+  copilot:
+    - github/copilot
+
+# 리뷰어 수 설정
+numberOfReviewers: 2
+
+# 작성자를 리뷰어에서 제외
+skipKeywords:
+  - wip
+  - draft 
