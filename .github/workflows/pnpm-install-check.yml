@@ -1,0 +1,51 @@
+name: pnpm install & auto-commit lockfile
+
+on:
+  pull_request:
+
+jobs:
+  check-lockfile:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # auto commit/push 위해 필요
+      pull-requests: write # PR comment 위해 필요
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Check for lockfile changes
+        id: diff
+        run: |
+          git diff --quiet pnpm-lock.yaml || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit lockfile changes
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pnpm-lock.yaml
+          git commit -m "[ci] pnpm-lock.yaml regenerated"
+          git push
+
+      - name: Comment warning
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            **주의: pnpm-lock.yaml 수정 사항 존재, 커밋 확인 필요**
+            CI가 lockfile을 새로 만들었습니다. 커밋 diff를 꼭 확인하고, `squash merge` 해주세요.
