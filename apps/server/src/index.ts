@@ -1,25 +1,21 @@
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import { Provider } from "@smoodie/provider";
+import { ConfigService } from "./services/config.service";
+import path from "path";
+import { AppService } from "./services/app.service";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const provider = new Provider();
 
-dotenv.config();
+const configService = provider.register(ConfigService.forRoot({
+  envFilePaths: path.resolve(process.cwd(), `.env.${process.env.NODE_ENV || 'development'}`),
+})).asSingleton();
 
-const app = express();
-const port = process.env.PORT || 3001;
+console.log(configService.get('PORT'), configService.get('BASE_URL'));
 
-app.use(cors());
-app.use(express.json());
+const appService = provider.register(AppService).asSingleton();
 
-// 기본 라우트
-app.get('/', (req, res) => {
-  res.json({ message: 'Smoodie API Server' });
-});
+await appService.init();
+await appService.start();
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-}); 
+
+
+
