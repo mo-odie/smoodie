@@ -8,17 +8,12 @@
     "strict": true,
     "skipLibCheck": true,
     "outDir": "dist",
-    "rootDir": "../..",
+    "rootDir": ".",
     "isolatedModules": true,
-    "allowJs": true,
     "resolveJsonModule": true,
     "declaration": true,
-    "noEmit": false,
-    "baseUrl": ".",
-    "paths": {
-      "@smoodie/provider": ["../../packages/provider/provider"]
-    }
+    "noEmit": false
   },
-  "include": ["src/**/*", "../../packages/provider/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["*.ts"],
+  "exclude": ["node_modules", "dist"]
 } 
