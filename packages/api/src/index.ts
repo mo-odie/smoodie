@@ -1,0 +1,1 @@
+export type { AppRouter } from "@smoodie/server/src/controllers/trpc/root.router.ts";
