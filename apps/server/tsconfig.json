@@ -14,9 +14,11 @@
     "resolveJsonModule": true,
     "declaration": true,
     "noEmit": false,
+    "composite": true,
     "baseUrl": ".",
     "paths": {
-      "@smoodie/provider": ["../../packages/provider/provider"]
+      "@smoodie/provider": ["../../packages/provider/provider"],
+      "@smoodie/server/*": ["src/*"]
     }
   },
   "include": ["src/**/*", "../../packages/provider/**/*"],
